@@ -1,35 +1,37 @@
+const accessTokenQuery = require('../query/accesstoken-query');
 const db = require('../db');
 
 module.exports = () => {
     return {
-        getClient: (clientID, clientSecret, callback) => {
-            // console.log('getclient', { clientID, clientSecret, callback });
-            callback();
-        },
-        saveAccessToken: saveAccessToken,
-        getUser: getUser,
+        getClient: getClient,
         grantTypeAllowed: grantTypeAllowed,
+        getUser: getUser,
+        saveAccessToken: saveAccessToken,
         getAccessToken: getAccessToken
     }
 };
 
 const getClient = (clientID, clientSecret, callback) => {
-    return true;
-}
-
-const saveAccessToken = (accessToken, clientID, expires, user, callback) => {
-    console.log('save token');
-    return true;
-}
-
-const getUser = (username, password, callback) => {
-    console.log('get user');
-    return true;
+    const client = {
+        clientID,
+        clientSecret,
+        grants: null,
+        redirectUris: null
+    };
+    callback(false, client);
 }
 
 const grantTypeAllowed = (clientID, grantType, callback) => {
-    console.log('grantType');
-    return true;
+    callback(false, true);
+}
+
+const getUser = (username, password, callback) => {
+    console.log(callback);
+    // saveAccessToken.checkUserLogin(username, password, callback);
+}
+
+const saveAccessToken = (accessToken, clientID, expires, user, callback) => {
+    accessTokenQuery.saveAccessToken(accessToken, user.id);
 }
 
 const getAccessToken = (bearerToken, callback) => {

@@ -1,4 +1,4 @@
-const db = require('../db');
+const userQuery = require('../query/user-query');
 
 module.exports = (router, oauth) => {
     router.post('/register', register);
@@ -8,23 +8,17 @@ module.exports = (router, oauth) => {
 
 const register = (req, res, next) => {
     if (req.body.username !== '' &&
-    req.body.password !== '') {
-        // const query = 'insert into tbl_users (username, password) values'
-        const userIsExist = db.query('select * from tbl_users where username=\''+username+'\'');
-        if (userIsExist.length > 0) {
-            return res.send(400, {
-                code: 400,
-                message: '',
-                errors: 'Username exist please used another username'
-            });
-        }
-        const insertUser = db.query('insert into tbl_users (username, password) values');
+    req.body.password !== '' &&
+    req.body.user_group_id) {
+        userQuery.registerUser(req.body)
+        .then(result => {
+            res.status(result.status).send(result.data);
+        }).catch(err => {
+            res.status(err.status).send(err.data);
+        })
+    } else {
+        res.status(403).send({ code: 403, message: '', errors: 'Username & password required' });
     }
-    return res.send(403, {
-        code: 403,
-        message: '',
-        errors: 'Username & password required'
-    });
 };
 
 const loginUser = (req, res, next) => {
