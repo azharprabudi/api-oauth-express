@@ -12,6 +12,24 @@ module.exports = {
             })
             .catch(err => reject(err));
         });
+    },
+    getAllUsers: () => {
+        return new Promise((resolve, reject) => {
+            let query = 'select * from tbl_users a join tbl_user_group b on a.user_group_id = b.id';
+            db.query(query, (err, results) => {
+                if (err) {
+                    reject({
+                        status:404,
+                        data: {error: err, message: ''}
+                    })
+                } else {
+                    resolve({
+                        status: 200,
+                        data: {error: '', message: results}
+                    });
+                }
+            });
+        });
     }
 };
 
