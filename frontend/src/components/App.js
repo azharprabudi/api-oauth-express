@@ -8,8 +8,8 @@ class App extends Component {
     render() {
         return (
             <Switch>
-                <Route exact path='/' component={List} />
-                <Route path='/users' component={List} />
+                <Route exact path='/' component={Signin} />
+                <Route exact path='/users' component={List} />
                 <Route path='/users/:id' component={Detail} />
             </Switch>
         );

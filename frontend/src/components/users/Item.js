@@ -10,7 +10,7 @@ class Item extends Component {
                 <td>{this.props.name}</td>
                 <td>{this.props.alias}</td>
                 <td>
-                    <Link to={`user/${this.props.id}`} className="btn btn-info">Detail</Link>
+                    <Link to={`users/${this.props.id}`} className="btn btn-info">Detail</Link>
                 </td>
             </tr>
         );

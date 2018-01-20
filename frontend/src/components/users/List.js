@@ -21,9 +21,10 @@ class List extends Component {
     }
     renderList() {
         if (this.state.load === true) {
-            return <p>Loading ...</p>;
+            return <tr><td colspan="5">Loading ...</td></tr>;
         }
-        return _.map(this.state.data, (value, key) => {
+        return _.map(_.filter(this.state.data, filter => filter.alias === 'resolver'), 
+        (value, key) => {
             return <Item {...value} key={value.id} index={key+1} />
         });
     }
