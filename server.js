@@ -1,6 +1,7 @@
 const express = require('express');
 const bodyParser = require('body-parser');
 const OAuthServer = require('node-oauth2-server');
+const cors = require('cors');
 const model = require('./database-helpers/oauth-model');
 
 // inisialiasi express app
@@ -21,6 +22,7 @@ const user = require('./routes/user')(router, app.oauth);
 // set plugin in express
 app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({ extended: true }));
+app.use(cors());
 app.use('/auth', authentication);
 app.use('/user', user);
 

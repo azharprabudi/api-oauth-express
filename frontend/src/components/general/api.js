@@ -1,0 +1,2 @@
+export const link = 'http://192.168.1.4:3030/';
+export const token = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJ0aGlzZGVtbyIsImV4cCI6MTUxNjQ3Mjg0ODgwOCwidXNlcklkIjoyLCJpYXQiOjE1MTY0NjkyNDh9.x1rpp6GNLAseT7iLsTSop09VPuVBH8t5J3HCOdwdblo';
