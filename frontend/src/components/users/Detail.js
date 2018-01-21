@@ -12,11 +12,15 @@ class Detail extends Component {
             data: {},
             load: true
         };
+        this.backToBefore = this.backToBefore.bind(this);
     }
     componentDidMount() {
-        axios.get(`${link}user/${this.props.match.params.id}?access_token=${token}`)
+        axios.get(`${link}user/${this.props.history.location.state.id}?access_token=${this.props.history.location.state.access_token}`)
         .then(result => this.setState({ data: result.data.message, load: false }))
         .catch(err => console.log(err));
+    }
+    backToBefore() {
+        this.props.history.goBack();
     }
     render() {
         if (this.state.load) return <p>Loading ....</p>
@@ -24,7 +28,7 @@ class Detail extends Component {
             return (
                 <div className="container" style={{ paddingTop: 100 }}>
                     <div className="col-md-12 col-xs-12 text-left">
-                        <Link to="/users" className="btn btn-warning">Kembali</Link>
+                        <button type="button" onClick={this.backToBefore} className="btn btn-warning">Kembali</button>
                     </div>
                     <div className="col-md-12 col-xs-12 text-center">
                         <h3>Target Kerjaan Saat Ini</h3>
@@ -32,8 +36,8 @@ class Detail extends Component {
                     </div>
                     <div className="col-md-12 col-xs-12" style={{backgroundColor: '#f3f3f3',paddingBottom: 15, marginTop: 10, marginBottom: 10}}>
                         <h3>Informasi Karyawan</h3>
-                        <div class="row">
-                            <div class="col-md-6 col-xs-12">
+                        <div className="row">
+                            <div className="col-md-6 col-xs-12">
                                 <div style={{ marginTop: 10, marginBottom: 10, borderBottomWidth: 0.5, borderBottomStyle: 'solid', borderBottomColor: '#333333' }}>
                                     Nama: {this.state.data.name}
                                 </div>
@@ -44,7 +48,7 @@ class Detail extends Component {
                                     Gaji Saat Ini: {this.state.data.remaining_payroll}
                                 </div>
                             </div>
-                            <div class="col-md-6 col-xs-12">
+                            <div className="col-md-6 col-xs-12">
                                 <div style={{ marginTop: 10, marginBottom: 10, borderBottomWidth: 0.5, borderBottomStyle: 'solid', borderBottomColor: '#333333' }}>
                                     Gaji Pokok: {this.state.data.gaji_pokok}
                                 </div>

@@ -9,9 +9,7 @@ class Item extends Component {
                 <td>{this.props.id}</td>
                 <td>{this.props.name}</td>
                 <td>{this.props.alias}</td>
-                <td>
-                    <Link to={`users/${this.props.id}`} className="btn btn-info">Detail</Link>
-                </td>
+                <td><button className="btn btn-info" onClick={() => this.props.navigate(this.props.id)}>Detail</button></td>
             </tr>
         );
     }

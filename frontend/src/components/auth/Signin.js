@@ -1,5 +1,6 @@
 import React, { Component } from 'react';
 import axios from 'axios';
+import { BrowserRouter } from 'react-router-dom'; 
 import queryString from 'query-string';
 import { Link } from 'react-router-dom';
 import { link } from '../general/api';
@@ -20,20 +21,24 @@ class Signin extends Component {
     doLogin() {
         const { username, password } = this.state;
         if (username && password) {
-            /*
             axios.post(
                 `${link}auth/login`, 
                 queryString.stringify({
                     username,
                     password,
-                    client_id: null,
-                    client_secret: null,
+                    client_id: 'secret',
+                    client_secret: 'secret',
                     grant_type: 'password'
-                })
-            ).then(result => console.log(result))
-            .catch(err => console.log(err));
-            */
-            console.log(this.props);
+                }),
+                {
+                    headers:  { 'Content-Type': 'application/x-www-form-urlencoded' }
+                }
+            ).then(result => {
+                this.props.history.push({
+                    pathname: '/users', 
+                    state: { access_token: result.data.access_token }
+                });
+            }).catch(err => console.log(err));
         } else {
             alert('Beberapa field masih kosong');
         }
@@ -51,7 +56,12 @@ class Signin extends Component {
                         <label>Password</label>
                         <input type="password" name="password" id="password" className="form-control" onChange={this.handleOnChange}/>
                     </div>
-                    <Link to="/users" className="btn btn-success btn-block" type="button">Masuk</Link>
+                    <button type="button" className="btn btn-success" onClick={this.doLogin}>
+                        Masuk
+                    </button>
+                    {
+                        /*<Link to="/users" className="btn btn-success btn-block" type="button">Masuk</Link>*/
+                    }
                 </div>
             </div>
         );

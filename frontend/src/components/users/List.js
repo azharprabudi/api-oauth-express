@@ -13,7 +13,7 @@ class List extends Component {
         };
     }
     componentDidMount() {
-        axios.get(`${link}user?access_token=${token}`)
+        axios.get(`${link}user?access_token=${this.props.location.state.access_token}`)
         .then(result => {
             this.setState({ load: false });
             this.setState({ data: result.data.message });
@@ -21,11 +21,20 @@ class List extends Component {
     }
     renderList() {
         if (this.state.load === true) {
-            return <tr><td colspan="5">Loading ...</td></tr>;
+            return <tr><td colSpan="5">Loading ...</td></tr>;
         }
         return _.map(_.filter(this.state.data, filter => filter.alias === 'resolver'), 
         (value, key) => {
-            return <Item {...value} key={value.id} index={key+1} />
+            return <Item {...value} key={value.id} index={key+1} navigate={id => this.navigate(id)} />
+        });
+    }
+    navigate(id) {
+        this.props.history.push({
+            pathname: `/users/${id}`, 
+            state: { 
+                id: id, 
+                access_token: this.props.history.location.state.access_token
+            }
         });
     }
     render() {

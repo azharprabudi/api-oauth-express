@@ -26,4 +26,5 @@ app.use(cors());
 app.use('/auth', authentication);
 app.use('/user', user);
 
+
 app.listen(3030, () => console.log('server sudah up'));

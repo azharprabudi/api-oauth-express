@@ -25,7 +25,6 @@ const getClient = (clientID, clientSecret, callback) => {
 }
 
 const grantTypeAllowed = (clientID, grantType, callback) => {
-    console.log('grant type allowed');
     callback(false, true);
 }
 
